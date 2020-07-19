@@ -1,0 +1,324 @@
+/* Reset Css */
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Google Fonts */
+
+body{
+    font-family: 'Lato', sans-serif;
+}
+
+/* Navigation-Section */
+
+nav{
+/* height: 100px; */
+width: 100%;
+background: whitesmoke;
+padding: 10px;
+}
+nav .nav-main{
+    width: 85%;
+    /* border: 2px solid red; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .nav-main .logo h1{
+font-size: 40px;
+text-transform: capitalize;
+}
+nav .nav-main .btn button{
+    /* font-size: 40px; */
+    text-transform: capitalize;
+    padding: 12px 16px;
+    background: none;
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    }
+
+    nav .nav-main .btn button:hover{
+        background: #0069d9;
+    border-color: #0062cc;
+    }
+
+/* Header-Section */
+
+
+header{
+    width: 100%;
+    background-color: #343a40;
+    background:url(../img/bg-masthead.jpg) no-repeat center center;
+    padding: 200px 20px;
+}
+header #header-text{
+    margin: 0 auto;
+    width: 60%;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+header #header-text .subscribe{
+    display: flex;
+    justify-content: space-around;
+    width:30%;
+    margin: 30px auto; 
+}
+
+header #header-text .subscribe .button button{
+    height: 45px;
+    width: 150px;
+    background: none;
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    font-size: 14px;
+}
+header #header-text .subscribe .button button:hover{
+    background: #0069d9;
+border-color: #0062cc;
+}
+
+
+/* About-Section */
+#about{
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px; 
+    background: #f8f9fa;
+    
+}
+#about-text{
+    width: 80%;
+    margin: 0px auto;
+    /* border: 2px solid; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.responsive{
+   /* width: 33%; */
+   width: 380px;
+   height: 229px;
+   padding: 20px;
+}
+#about #about-text .responsive h1{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+#about #about-text .responsive p{
+    color:grey;
+    font-weight: 100;
+}
+#about #about-text .responsive .fas{
+font-size: 64px;
+color: #007bff;
+}
+#about #about-text .responsive .far{
+    font-size: 64px;
+    color: #007bff;
+    }
+
+
+
+
+
+@media (max-width: 520px){
+    #about #about-text .responsive h1{
+        padding-bottom: 16px;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+}
+
+
+
+/* Project-Section */
+
+#project{
+    width: 100%;
+    /* background: red; */
+}
+#wrapper1,#wrapper2,#wrapper3{
+    display: flex;
+}
+
+#project-text1{
+    height: 480px;
+    width: 50%;
+    /* border: 2px solid; */
+}
+#project-wrap1{
+    width: 70%;
+    margin: 135px auto;
+}
+#project-wrap1 h1{
+    padding-bottom: 10px;
+}
+#project-wrap1 p{
+    letter-spacing: 1.5px;
+}
+#project-img1{
+    height: 480px;
+    width: 50%;
+    background-image: url(../img/bg-showcase-1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#project-img2{
+    height: 480px;
+    width: 50%;
+    background-image: url(../img/bg-showcase-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#project-img3{
+    height: 480px;
+    width: 50%;
+    background-image: url(../img/bg-showcase-3.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+
+/* Team-Section */
+
+#team{
+    /* height: 600px; */
+    padding-top: 100px;
+    padding-bottom: 100px;
+    width: 100%;
+    background: #f8f9fa;
+}
+#team-text{
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between; 
+}
+#team .team1{
+    /* border: 2px solid; */
+    padding: 10px;
+}
+#team .team1 h1{
+    padding-bottom: 10px;
+}
+#team .team1 img{
+    height: 50%;
+    width: 50%;
+    border-radius: 50%;
+}
+
+
+/* Parallax-Section */
+
+#parallax{
+    width: 100%;
+    background: url(../img/bg-masthead.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+#parallax-text{
+    width: 80%;
+    /* border: 2px solid; */
+    margin: 0px auto;
+    text-align: center;
+    padding: 20px;
+}
+#parallax-text h1{
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+#parallax-text p{
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+.btn-info button{
+    /* font-size: 40px; */
+    text-transform: capitalize;
+    padding: 16px 32px;
+    background: none;
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;
+    }
+
+   .btn-info button:hover{
+        background: #0069d9;
+    border-color: #0062cc;
+    }
+
+
+
+/* Footer-Section */
+
+footer{
+    width: 100%;
+    /* border: 2px solid; */
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+#footer-text{
+    width: 80%;
+    /* border: 2px solid; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+#footer-text #nav{
+    /* border: 2px solid; */
+    width: 60%;
+}
+#footer-text #nav ul{
+    display: flex;
+}
+
+#footer-text #nav ul li{
+   list-style: none;
+   color: #007bff;
+   /* padding: 20px; */
+   padding-left: 10px;
+   
+}
+#footer-logo{
+    display: flex;
+    width: 30%;
+}
+#footer-logo > div{
+    padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
