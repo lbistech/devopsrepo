@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+   dbserver:
+     container_name: dbserver
+     image: mysql
+     ports:
+        - "3306:3306"
+     env_file: env_file.txt
+     volumes:
+        - "mysql-db02:/var/lib/mysql"
+
+volumes:
+    mysql-db02:

@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+   web:
+      container_name: myweb
+      image: my_centos_img
+      build:
+         context: docker-image
+         dockerfile: Dockerfile_centos

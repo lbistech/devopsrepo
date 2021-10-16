@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+   web:
+      container_name: nginx_dc
+      ports: 
+         - "80:80"
+         - "443:443"
+      image: centos
+      networks:
+         - my_app_net
+      tty: true
+   db:
+      container_name: mysql_dc
+      image: centos
+      ports:
+         - "3306:3306"
+      networks:
+         - my_app_net
+      environment:
+         - MYSQL_ROOT_PASSWORD=usman123
+      tty: true
+
+networks:
+   my_app_net:

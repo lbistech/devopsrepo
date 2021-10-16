@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+   webserver:
+      container_name: webserver
+      image: nginx
+      ports:
+         - "80:80"
+         - "443:443"
+
+   dbserver:
+     container_name: dbserver
+     image: mysql
+     ports:
+        - "3306:3306"
+     env_file: env_file.txt
