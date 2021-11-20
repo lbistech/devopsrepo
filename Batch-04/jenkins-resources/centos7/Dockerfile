@@ -18,4 +18,12 @@ RUN /usr/bin/ssh-keygen -A
 EXPOSE 22
 RUN rm -rf /run/nologin
 
+RUN yum -y install mysql
+
+#AWS CLI Installation
+RUN yum -y install epel-release && \
+    yum -y install python3-pip && \
+    pip3 install --upgrade pip && \
+    pip3 install awscli
+
 CMD /usr/sbin/sshd -D
