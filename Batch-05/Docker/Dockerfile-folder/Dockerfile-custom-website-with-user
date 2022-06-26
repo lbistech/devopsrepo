@@ -1,0 +1,34 @@
+FROM centos:7
+
+LABEL maintainer="Usman"
+LABEL email="xyz@lbistech.com"
+LABEL vendor="LbisTech"
+LABEL random=wow
+
+ARG user=ammar
+ARG httpd_package
+
+RUN yum -y update \
+        && yum -y install $httpd_package \
+           zip \
+           unzip \
+           curl \
+           wget
+
+ENV HTML beginner-html-site-styled
+
+WORKDIR /var/www/html
+
+ADD https://github.com/mdn/$HTML/archive/gh-pages.zip .
+RUN unzip gh-pages.zip
+RUN mv $HTML-gh-pages/* .
+RUN echo $HTML > env.html
+
+RUN useradd $user
+RUN chown $user:$user /var/www/html -R
+
+USER $user
+RUN rm -rf gh-pages.zip beginner-html-site-styled-gh-pages
+
+USER root
+CMD apachectl -DFOREGROUND

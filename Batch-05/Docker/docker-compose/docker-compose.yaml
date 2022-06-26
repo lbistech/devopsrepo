@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+  web:
+    container_name: nginx_web01
+    image: nginx:alpine
+    ports:
+      - 80:80

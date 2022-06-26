@@ -1,0 +1,2 @@
+MYSQL_ROOT_PASSWORD=usman123
+SHOW=true
