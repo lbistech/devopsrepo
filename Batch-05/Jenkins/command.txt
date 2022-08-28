@@ -1,0 +1,10 @@
+Commands for jenkins:
+
+# Generate remote key
+ssh-keygen -t rsa -m PEM -f remote-key
+
+# Docker commands for jenkins
+docker-compose build
+docker-compose up -d
+docker exec -it jenkins bash
+docker exec -it remote_host bash

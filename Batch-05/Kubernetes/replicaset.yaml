@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: database
+
+spec:
+  selector:
+    matchLabels:
+      tier: database
+  template:
+    metadata:
+      name: postgres
+      labels:
+        tier: database
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          env:
+            - name: POSTGRES_PASSWORD
+              value: mypassword
+  replicas: 3
+    
