@@ -1,0 +1,27 @@
+1-	Install docker on server: get.docker.com
+2-	Grant the permission to the user of docker group
+a.	Sudo usermod -aG docker ubuntu
+
+3-	Minikube installation: 
+
+#curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+#sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+#sudo minikube start --driver=docker
+
+4-	Install “kubectl”
+a.	https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
+
+5-	Create and Expose a Deployment
+a.	sudo kubectl create deployment --image nginx my-nginx
+b.	sudo kubectl expose deployment my-nginx --port=80 --type=NodePort
+c.	sudo minikube service list
+d.	curl http://<LOCAL_IP>:<PORT>
+
+6-	Install nginx on your server to get the requests on your public IP address
+a.	sudo apt install -y nginx
+b.	sudo vim /etc/nginx/sites-available/default
+c.	Change the line try_files $uri $uri/ =404; with “proxy_pass http://192.168.49.2:30871;”
+d.	sudo systemctl restart nginx
+
+7-	Test in a Browser
+
