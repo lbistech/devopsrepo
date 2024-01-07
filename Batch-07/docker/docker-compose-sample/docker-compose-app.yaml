@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    container_name: nginx_01
+    image: nginx:alpine
+    ports:
+      - 80:80
+  db:
+    container_name: mysql_01
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    volumes:
+      - "my_database_vol:/var/lib/mysql"
+
+volumes:
+  my_database_vol:

@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  wordpress:
+    container_name: wordpress_web
+    image: wordpress
+    ports:
+      - "8080:80"
+    volumes:
+      - ./wordpress_code:/var/www/html
+    networks:
+      - wordpress_network
+    depends_on:
+      - mariadb
+    environment:
+      WORDPRESS_DB_HOST: "wordpress_db"
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "usman123"
+      WORDPRESS_DB_NAME: "lbistech_db"
+
+  mariadb:
+    container_name: wordpress_db
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "usman123"
+      MYSQL_DATABASE: "lbistech_db"
+    volumes:
+      - ./my_database_data:/var/lib/mysql
+    networks:
+      - wordpress_network
+networks:
+  wordpress_network: 

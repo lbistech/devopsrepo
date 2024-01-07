@@ -1,0 +1,20 @@
+FROM centos:7
+
+RUN \
+   yum -y install httpd && \
+   yum -y install zip && \
+   yum -y install unzip 
+
+#RUN yum -y install httpd
+#RUN yum -y install zip 
+#RUN yum -y install unzip
+
+WORKDIR /var/www/html/
+
+ADD https://github.com/mdn/beginner-html-site-styled/archive/gh-pages.zip .
+RUN \
+   unzip /var/www/html/gh-pages.zip -d . && \
+   mv beginner-html-site-styled-gh-pages/* . && \
+   rm -rf gh-pages.zip beginner-html-site-styled-gh-pages
+
+CMD apachectl -DFOREGROUND
