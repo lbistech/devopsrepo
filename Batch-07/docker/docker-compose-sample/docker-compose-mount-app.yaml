@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    container_name: nginx_01
+    image: nginx:alpine
+    ports:
+      - 80:80
+  db:
+    container_name: mysql_01
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    volumes:
+      - /home/ubuntu/compose/database_mount_dir:/var/lib/mysql
+  db02:
+    container_name: mysql_02
+    image: mysql
+    ports:
+      - 3307:3306
+    env_file:
+      - .env
+    volumes:
+      - /home/ubuntu/compose/database_mount_dir:/var/lib/mysql
