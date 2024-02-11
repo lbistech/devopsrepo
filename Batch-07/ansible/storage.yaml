@@ -1,0 +1,10 @@
+---
+  - hosts: all
+    tasks:
+      - name: Retrive hostname
+        command: "df -h"
+        register: output
+
+      - name: Display hostname
+        debug:
+          var: output.stdout

@@ -1,0 +1,22 @@
+---
+  - hosts: loadbalancer
+    become: true
+
+    vars:
+      nginx_config_file: /etc/nginx/conf.d/nginx.conf
+      apache1_server: 34.244.51.235
+      apache2_server: 3.249.156.97
+
+    tasks:
+      - name: Install the latest version of Nginx
+        apt: name=nginx state=present update_cache=yes
+
+      - name: Configure Nginx Reverse Proxy
+        template:
+          src: nginx.conf.j2
+          dest: "{{ nginx_config_file }}"
+        notify: restart nginx
+
+    handlers:
+      - name: restart nginx
+        service: name=nginx state=restarted

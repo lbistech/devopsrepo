@@ -1,0 +1,25 @@
+---
+  - hosts: web
+    become: true
+    tasks:
+      - name: Install multiple packages at a time
+        apt: name={{item}} state=present update_cache=yes
+        with_items: 
+          - apache2
+          - curl
+          - wget
+          - python3-pip
+
+      - name: ensure apache2 started
+        service:
+          name: apache2
+          state: started
+          enabled: yes
+
+      - name: Copy Demo application from control machine to loadbalancer
+        copy: src=/home/ubuntu/playbooks/project/sample-html-website dest=/var/www/html/ mode=0755
+        notify: restart apache2
+
+    handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted

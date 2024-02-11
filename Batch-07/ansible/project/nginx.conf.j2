@@ -1,0 +1,15 @@
+upstream stream_backend {
+    server 34.244.51.235:80 weight=75;
+    server 3.249.156.97:80 weight=25;
+}
+
+server {
+    listen 80;
+    server_name app.syedusmanahmad.com;
+
+    location / {
+        proxy_pass http://stream_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

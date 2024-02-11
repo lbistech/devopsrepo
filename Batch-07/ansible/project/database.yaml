@@ -1,0 +1,11 @@
+---
+  - hosts: database
+    become: true
+    tasks:
+      - name: Install the latest version of MySQL
+        apt: name=mysql-server state=present update_cache=yes
+      - name: ensure mysql started
+        service:
+          name: mysql
+          state: started
+          enabled: yes

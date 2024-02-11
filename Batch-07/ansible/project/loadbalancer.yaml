@@ -1,0 +1,24 @@
+---
+  - hosts: loadbalancer
+    become: true
+    tasks:
+      - name: Install the latest version of Nginx
+        apt: name=nginx state=present update_cache=yes
+
+      - name: ensure nginx started
+        service:
+          name: nginx
+          state: started
+          enabled: yes
+
+      - name: Copy the nginx virtualhost configurations
+        copy: src=/home/ubuntu/playbooks/project/demo.conf dest=/etc/nginx/conf.d mode=0755
+        notify: restart nginx
+
+      - name: Copy Demo application from control machine to loadbalancer
+        copy: src=/home/ubuntu/playbooks/project/sample-html-website dest=/var/www/html/ mode=0755
+        notify: restart nginx
+        
+    handlers:
+      - name: restart nginx
+        service: name=nginx state=restarted
