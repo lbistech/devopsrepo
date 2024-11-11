@@ -1,0 +1,2 @@
+Hello, bash scripting - linux course
+This is the second line of the txt file
