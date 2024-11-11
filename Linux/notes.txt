@@ -1,0 +1,260 @@
+Pwd: present working dir
+Cd: change directory
+	Cd: it will revert/route back to the root location of the user
+	Cd .. 
+Ls: List content
+Ls -l: Long list
+-	ll
+Mkdir: Make directory
+Touch: It will create an empty file
+Text editior
+-	Vim
+-	Nano
+-	Gedit
+Cat: This command will use to see the content of the file
+Cp: To copy your content from one dir to another (copy and paste)
+-	Cp source_file_name destiniation_dir
+-	Cp -R source_dir_name destiniation_dir_name *copy dir to dir
+-	If we want to copy just 1 file from a source dir to the destination dir
+o	Cp dir1/devops.txt dir5
+-	If we want to copy just 1 dir content from a source dir to the destiniation dir
+o	Cp -R dir1/new_dir dir5
+-	If we want to copy everything from source dir to the destination dir
+o	Cp -R dir1/* dir6
+Clear: clear your command line terminal
+How to create multiple files at a time: 
+-	Touch file1.txt file2.txt file3.txt
+How to create multiple directories at a time:
+-	Mkdir dir1 dir2 dir3 
+Manual of each command: man
+
+Mv: Move (cut and paste)
+-	Mv source_file_name destination_dir_name
+-	Mv source_dir_name destination_dir_name
+-	Mv command not just use to cut and paste, it will also use to rename the file or dir
+
+Exit from Vim editor:
+-	Ecs
+-	Shift :wq!
+
+User  Group   other
+-	rwx    rwx       rwx
+-	421.   421.      421
+-	r = 4, w=2, x=1 => 7
+ 
+Example: 
+-	r: Read
+-	w: write
+-	x: execute
+-	
+For example we have 2 users
+-	Usman -> helloworld.sh (owner usman and group usman)
+-	Helloworld.sh -> 
+o	400 (just owner has the read permission)
+o	600 (Has the read and write permission
+o	700 (Has the read, write and execute permission)
+-	Hanan
+o	704
+o	706
+o	707
+-	Group member
+o	744
+o	766
+o	777
+
+
+Files and directory permissions:
+
+ 
+
+-rw-rw-r—
+-6.  6.   4
+rwxrwxr-x
+7.   7.    5.  
+
+Command: 
+File/dir permission command:
+-	Chmod (change mode command) – For File
+-	Chmod -R (change mode command) – For Dir
+
+Hostnamectl *to check the OS version and distribution
+Linux:
+1-	Server
+a.	OS (Ubuntu) - Machine
+2-	Service
+a.	Running software/package 
+b.	Process
+c.	Webservice, database service, proxy service, cronjob
+User creation:
+-	Useradd test (create the user with the password)
+-	sudo passwd test (now it will ask you to enter the password)
+-	Add User command: adduser test1
+o	Create the user
+o	Make the entry in the passwd file
+o	Create the home dir
+o	Set password as well
+-	How to become a root user
+o	Usermod -aG sudo username
+
+Linux OS: 
+2 types of terminals available: 
+-	Bash
+-	SH
+
+Package manager:
+-	Apt-get/apt -> Ubuntu
+-	Yum -> CentOS/Red
+-	Rpm -> 
+Linux new server:
+-	You have to update the OS one time 
+-	Command: apt update
+
+WebServer: Apache2, Nginx
+-	Installation
+-	Configurations
+-	How to make sure that my webserver Apache2 is running or not?
+o	Systemctl status apache2
+	Because I am using the AWS Cloud on which I have the ubuntu OS. I have a extra level of security which should be allowed us to visit our webpage
+SSH: Secure Shell:
+	By default port of SSH is 22
+	Web traffic always run on 2 protocols:
+o	HTTP -> port 80
+o	HTTPS -> port 443
+
+
+ 
+Apache2 – Nginx: By default port 80 listen
+-	App1: 80
+-	App2: 8080
+-	App3: 8081
+-	App4: 8090
+
+	What is the difference b/w IP address and Port Number:
+IP address: destination address
+Port: address of internal service
+Mac: Device address
+
+Multi-site configurations in Apache2/Nginx
+1-	Create .conf files in /etc/apache2/sites-available location
+a.	For example abc.lbistech.com
+b.	For example cde.lbistech.com
+2-	Add below configurations in the .conf files
+<VirtualHost *:80>
+	ServerAdmin admin@lbistech.com
+	DocumentRoot /var/www/html/abc
+	ServerName abc.lbistech.com
+	ServerAlias www.abc.lbistech.com
+
+	<Directory /var/www/html/abc>
+        	Options -Indexes +FollowSymLinks
+        	AllowOverride All
+    	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+	
+3-	Run the command to enable the files
+a.	A2ensite abc.lbistech.conf
+b.	A2ensite cde.lbistech.conf
+4-	Restart the apache2
+
+Bash scripting:
+1-	Bash 
+2-	Python
+3-	Go
+
+.php
+.py
+.sh
+.html
+.png
+.jpeg
+.gif
+
+Bash scripting almost same as we are running the commands on a terminal
+
+Example: You have assigned a task to get the system information of 100 servers and store the information in specific location (directory)
+
+Linux Command: To store your result in a specific file? 
+
+Variable=”Usman” -> String 
+Variable=”Usman Ahmad, DevOps Engineer”
+
+Variable=100 -> integer 
+Variable=”100” -> String
+
+Variable=true -> Boolean
+Variable=false -> Boolean
+Variable=”true” -> String
+
+
+If {
+	code
+}
+
+If 
+
+Fi
+
+Linux Conditions:
+If, elif, else
+
+Equal to:
+-	==
+-	Eq
+
+Not equal to:
+-	!=
+-	Ne
+Greater then:
+-	>
+-	Gt
+Greater than equal to:
+-	>=
+Less than:
+-	<
+-	Lt
+ 
+Less than equal to:
+-	<=
+
+
+Loops:
+List of values [1, 2, 3, 4, 5]
+
+In bash:
+Count=(1 2 3 4 5)
+
+Logic operators:
+
+OR (when any value will be true)
+In bash OR operator will be show as “||”
+Inputs 2 
+A 	B 	Result
+0.          0	0 
+0.          1	1
+1           0	1
+1           1	1
+
+AND (end result will be false if any value is false)
+In bash AND operator will be show as “&&”
+A 	B 	Result
+0.          0	0 
+0.          1	0	
+1           0	0
+1           1	1
+
+NOT “!”
+A	B
+1	0
+0	1
+
+CronJob:
+Schedular -> specific time 
+
+-	*           *           *          *                *
+-	Min.     Hour.    Day     month       day(week)
+
+/home/ubuntu/linuxscripts/system-info.sh
+
