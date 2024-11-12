@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  servicename:
+    container_name: any_name
+    image: any_image
+    command: anycommand
+    environment: 
+      - anyenvironment
+    volumes:
+      - firstvolume
+      - secondvolume
+    networks:
+      - mynetwork1
+      - mynetwork2
+
+  secondservicename:
+    container_name: any_name
+    image: any_image
+    command: anycommand
+    environment: 
+      - anyenvironment
+    volumes:
+      - firstvolume
+      - secondvolume
+    networks:
+      - mynetwork1
+      - mynetwork2
+
+

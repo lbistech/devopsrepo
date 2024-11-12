@@ -1,0 +1,4 @@
+FROM centos
+
+RUN mkdir /opt/test
+RUN echo "--- This is my test docker image with default centos ---"

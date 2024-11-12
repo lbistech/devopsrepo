@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  web:
+    container_name: webserver01
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - web_volume:/usr/share/nginx/html
+    
+  db:
+    container_name: mysql-db
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - env_file.txt
+    volumes:
+      - db_volume:/var/lib/mysql
+
+volumes:
+  web_volume:
+  db_volume:

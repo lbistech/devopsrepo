@@ -1,0 +1,24 @@
+FROM centos:7
+
+LABEL maintainer="Usman"
+LABEL email="xyz@lbistech.com"
+LABEL vendor="LbisTech"
+LABEL random=wow
+
+RUN yum -y update \
+        && yum -y install httpd \
+           zip \
+           unzip \
+           curl \
+           wget
+
+ENV HTML beginner-html-site-styled
+
+WORKDIR /var/www/html
+
+ADD https://github.com/mdn/$HTML/archive/gh-pages.zip .
+RUN unzip gh-pages.zip
+RUN mv $HTML-gh-pages/* .
+RUN echo $HTML > env.html
+
+CMD apachectl -DFOREGROUND

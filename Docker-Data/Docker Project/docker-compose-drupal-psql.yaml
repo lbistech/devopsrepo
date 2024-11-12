@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  drupal:
+    container_name: drupal-app
+    image: drupal:8-apache
+    ports:
+      - 80:80
+    volumes:
+      - drupal_modules:/var/www/html/modules
+      - drupal_profiles:/var/www/html/profiles
+      - drupal_sites:/var/www/html/sites
+      - drupal_themes:/var/www/html/themes
+    networks:
+      - MyApplicationNetwork
+    restart: always
+  postgres:
+    container_name: postgres_db
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: usman123
+    volumes:
+      - psql_db_data:/var/lib/postgresql/data
+    networks:
+      - MyApplicationNetwork
+    restart: always
+
+volumes:
+  drupal_modules:
+  drupal_profiles:
+  drupal_sites:
+  drupal_themes:
+  psql_db_data: 
+networks:
+  MyApplicationNetwork:
+  

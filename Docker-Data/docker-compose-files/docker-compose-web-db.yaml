@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+   web:
+      container_name: nginx_dc
+      ports: 
+         - "80:80"
+         - "443:443"
+      image: nginx:alpine
+      networks:
+         - my_app_net
+   db:
+      container_name: mysql_dc
+      image: mysql
+      ports:
+         - "3306:3306"
+      networks:
+         - my_app_net
+      environment:
+         - MYSQL_ROOT_PASSWORD=usman123
+
+networks:
+   my_app_net:
