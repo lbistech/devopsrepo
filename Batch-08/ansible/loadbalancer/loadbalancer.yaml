@@ -1,0 +1,27 @@
+---
+- name: Install Nginx on the Load Balancer
+  hosts: loadbalancer
+  become: yes
+  tasks:
+    - name: Update the packges
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copy the nginx virtualhost configurations to loadbalancer
+      copy: src=/home/ubuntu/loadbalancer/nginx.conf dest=/etc/nginx/conf.d/ mode=0755
+      notify: restart nginx
+
+  handlers:
+  - name: restart nginx
+    service: name=nginx state=restarted

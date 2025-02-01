@@ -1,0 +1,54 @@
+---
+  - name: Installation of MySQL Engine and configurations
+    hosts: database
+    become: yes
+    vars:
+      mysql_root_password: "rootpassword"
+      mysql_db: "mydatabase"
+      mysql_user: "myuser"
+      mysql_password: "mypassword"
+
+    tasks:
+      - name: Update the packges
+        apt:
+          update_cache: yes
+      - name: Install MySQL Server
+        apt:
+          name: mysql-server
+          state: present
+      - name: Start MySQL service
+        service:
+          name: mysql
+          state: started
+          enabled: yes
+
+      - name: Install MySQL python dependencies
+        apt: 
+          name: python3-mysqldb
+          state: present
+
+      - name: Set MySQL root password
+        mysql_user:
+          name: root
+          password: "{{ mysql_root_password }}"
+          host: localhost
+          login_unix_socket: /var/run/mysqld/mysqld.sock
+        ignore_errors: yes
+
+      - name: Create a new MySQL Database
+        mysql_db:
+          name: "{{ mysql_db }}"
+          state: present
+          login_user: root
+          login_password: "{{ mysql_root_password }}"
+
+      - name: Create a new MySQL user
+        mysql_user:
+          name: "{{ mysql_user }}"
+          password: "{{ mysql_password }}"
+          priv: "{{ mysql_db }}.*:ALL"
+          host: "%"
+          state: present
+          login_user: root
+          login_password: "{{ mysql_root_password }}"
+

@@ -1,0 +1,29 @@
+---
+  - hosts: webservers
+    become: true
+    tasks:
+      - name: Update the packges
+        apt:
+          update_cache: yes
+
+      - name: Installation of multiple packages at a time
+        apt: name={{item}} state=present update_cache=yes
+        with_items:
+          - curl
+          - wget
+          - apache2
+          - python3-pip
+
+      - name: Ensure apache2 started
+        service:
+          name: apache2
+          state: started
+          enabled: yes
+
+      - name: Copy sample application from contol machine to webservers
+        copy: src=/home/ubuntu/webservers/sample-html-website dest=/var/www/html/ mode=0755
+        notify: restart apache2
+
+    handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
