@@ -51,3 +51,8 @@ IAM ROLE IS ALREADY CREATED: EBS-CSI-Role
 JUST ATTACH WITH THE EC2 WORKER NODES
 -----
 
+*** IMPORTANT POINTS ***
+- Due to some issue we can't able to use the automatic provision of ebs volumes so we are not using the storageclass
+- I have created the EBS volume manually using AWS console and copied the newly created EBS volume
+- I have updated the pvc and statefulset files configuration and created the pv file 
+- Defined the ebs volume id manually in pv file everything is working fine now :)
