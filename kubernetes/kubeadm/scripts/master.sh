@@ -7,7 +7,7 @@ set -euxo pipefail
 
 # If you need public access to API server using the servers Public IP adress, change PUBLIC_IP_ACCESS to true.
 
-PUBLIC_IP_ACCESS="false"
+PUBLIC_IP_ACCESS="true"
 NODENAME=$(hostname -s)
 POD_CIDR="192.168.0.0/16"
 

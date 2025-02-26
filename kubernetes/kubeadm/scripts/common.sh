@@ -76,7 +76,19 @@ sudo apt-get update -y
 sudo apt-get install -y jq
 
 # Retrieve the local IP address of the eth0 interface and set it for kubelet
-local_ip="$(ip --json addr show eth1 | jq -r '.[0].addr_info[] | select(.family == "inet") | .local')"
+#local_ip="$(ip --json addr show eth1 | jq -r '.[0].addr_info[] | select(.family == "inet") | .local')"
+
+# Get the first non-loopback network interface dynamically
+INTERFACE=$(ip -o -4 route show to default | awk '{print $5}')
+
+# Retrieve the local IP address of the detected interface
+local_ip="$(ip --json addr show $INTERFACE | jq -r '.[0].addr_info[] | select(.family == "inet") | .local')"
+
+# If no IP was found, exit with an error
+if [[ -z "$local_ip" ]]; then
+    echo "Error: Failed to retrieve IP address. Check the network interface."
+    exit 1
+fi
 
 # Write the local IP address to the kubelet default configuration file
 cat > /etc/default/kubelet << EOF
