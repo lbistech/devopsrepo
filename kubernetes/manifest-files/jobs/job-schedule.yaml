@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scheduled-job
+spec:
+  schedule: "*/2 * * * *"  # Runs every 2 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cron-container
+              image: busybox
+              command: ["sh", "-c", "echo 'Running scheduled task'"]
+          restartPolicy: Never
