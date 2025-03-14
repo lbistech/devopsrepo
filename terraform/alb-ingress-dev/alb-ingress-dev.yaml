@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: alb
+  namespace: default
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  controller: ingress.k8s.aws/alb
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lbistech-dev-http-ingress
+  namespace: default
+  labels:
+    app: lbistech-dev-backbone
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=350
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/group.name: lbistech-dev-backbone-ingress-group
+    alb.ingress.kubernetes.io/group.order: "1"
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lbistech-dev-service  # Replace with your application's service name
+                port:
+                  number: 80
