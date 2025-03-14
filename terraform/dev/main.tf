@@ -32,28 +32,3 @@ module "eks" {
   cluster_autoscaler_service_account = var.cluster_autoscaler_service_account
   aws_ebs_csi_service_account     = var.aws_ebs_csi_service_account
 }
-
-module "redis" {
-  source              = "../modules/redis"
-  vpc_id              = module.vpc.vpc_id
-  environment         = var.environment
-  cluster_identifier  = var.cluster_identifier
-  node_type           = var.node_type
-  num_cache_clusters  = var.num_cache_clusters
-  parameter_group_name = var.parameter_group_name
-  subnet_ids          = var.subnet_ids
-}
-
-data "aws_secretsmanager_secret_version" "amazonmq_credentials" {
-  secret_id = var.secret_id
-}
-
-module "amazonmq" {
-  source                 = "../modules/amazonmq"
-  vpc_id                 = module.vpc.vpc_id
-  environment            = var.environment
-  broker_name            = var.broker_name
-  rabbitmq_instance_type = var.rabbitmq_instance_type
-  subnet_ids             = var.subnet_ids
-  secret_id              = var.secret_id
-}

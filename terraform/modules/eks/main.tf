@@ -12,6 +12,8 @@ data "aws_eks_cluster_auth" "cluster" {
   name = var.cluster_name
 }
 
+# data "aws_caller_identity" "current" {}
+
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "~> 20.0"

@@ -1,1 +1,4 @@
 Batch-04/docker-resources/projects/drupal-postgres/app/web-data/html/core/yarn.lock 
+
+.terraform
+.terraform.lock.hcl

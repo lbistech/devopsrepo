@@ -1,0 +1,15 @@
+There are few challenges to run this terraform module so follow the following steps: 
+1- Comment out all of the following .tf files while creating the EKS cluster first time
+    - aws-ebs-csi-driver-policy-role
+    - aws-secrets-manager-policy-role
+    - cluster-autoscaler-policy-role
+    - fluent-bit-policy-role
+    - loadbalancer-policy-role
+    - Comment out the provider and data in the module -> eks -> main.tf file
+    *** I will fix the above issue later in upcoming commits :) 
+
+2- Make sure to give the IAM user access through AWS EKS console with admin access
+
+3- Once the VPC and EKS cluster is created then we have to uncommend all of the above code and execute the terraform apply
+
+4- Now you should be able access the cluster, nodes and all ad-ons are installed

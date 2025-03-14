@@ -92,47 +92,6 @@ variable "ssh_key_name" {
   default     = "dev-ssh-key"
 }
 
-# Redis and AmazonMQ Variables
-variable "parameter_group_name" {
-  description = "Parameter group for Redis"
-  type        = string
-}
-
-variable "cluster_identifier" {
-  description = "The ID of the Redis cluster"
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs for resources"
-  type        = list(string)
-}
-
-variable "secret_id" {
-  description = "Secret in AWS Secrets Manager"
-  type        = string
-}
-
-variable "num_cache_clusters" {
-  description = "num_cache_clusters"
-  type        = string
-}
-
-variable "node_type" {
-  description = "node instance type"
-  type        = string
-}
-
-variable "rabbitmq_instance_type" {
-  description = "Instance type for the AmazonMQ broker"
-  type        = string
-}
-
-variable "broker_name" {
-  description = "Name of the AmazonMQ broker"
-  type        = string
-}
-
 # Variable for enabling/disabling VPC peering
 variable "enable_vpc_peering" {
   description = "Enable or disable VPC peering"
