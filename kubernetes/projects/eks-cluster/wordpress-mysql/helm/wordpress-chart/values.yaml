@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  wordpress: "wordpress:latest"
+  mysql: "mysql:8.0"
+
+service:
+  wordpress:
+    type: ClusterIP
+    port: 80
+  mysql:
+    type: ClusterIP
+    port: 3306
+
+persistence:
+  enabled: true
+  storageClass: gp2
+  mysqlSize: 5Gi
+  wordpressSize: 5Gi
+
+aws:
+  region: us-east-1
+  secretName: wordpress-db-secret
+  roleArn: arn:aws:iam::821106082324:role/EKSSecretsManagerRole
+
+ingress:
+  enabled: true
+  host: app.syedusmanahmad.com
+  annotations:
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/load-balancer-attributes: "idle_timeout.timeout_seconds=350"
