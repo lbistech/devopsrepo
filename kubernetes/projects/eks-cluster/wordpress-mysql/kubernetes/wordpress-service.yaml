@@ -1,13 +1,15 @@
+---
+# WordPress Service
 apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
   namespace: default
 spec:
-  type: ClusterIP
-  selector:
-    app: wordpress
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
+  selector:
+    app: wordpress
+  type: ClusterIP

@@ -1,3 +1,5 @@
+---
+# Wordpress Deployment file
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,27 +15,31 @@ spec:
       labels:
         app: wordpress
     spec:
+      serviceAccountName: aws-secrets-manager
       containers:
       - name: wordpress
         image: wordpress:latest
         env:
         - name: WORDPRESS_DB_HOST
-          value: "mysql.default.svc.cluster.local"
+          valueFrom:
+            secretKeyRef:
+              name: wordpress-secret
+              key: WORDPRESS_DB_HOST
         - name: WORDPRESS_DB_USER
           valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: MYSQL_USER  
+            secretKeyRef:
+              name: wordpress-secret
+              key: WORDPRESS_DB_USER
         - name: WORDPRESS_DB_NAME
           valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: MYSQL_DATABASE
+            secretKeyRef:
+              name: wordpress-secret
+              key: WORDPRESS_DB_NAME
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
-              key: mysql-password
+              name: wordpress-secret
+              key: WORDPRESS_DB_PASSWORD
         ports:
         - containerPort: 80
         volumeMounts:

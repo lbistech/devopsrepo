@@ -1,0 +1,7 @@
+As we have faced few following challenges while deploying the WordPress and MySQL on EKS cluster
+1- To use the secret from aws secrets manager we need to first create the secrets in secrets manager manually using cli or console
+2- We have to install the secrets manager ad-on if its not installed
+3- Create the serviceaccount for the secrets manager in the same region and namespace where we have the application deployment
+4- Now we need to create the cluster-secret-store.yaml so external secret should allow to get the secret from secrets manager
+5- Now create the external secrets file so we will get and store the secrets from secrets manager and save it in the kubernetes secrets
+6- Now need to update the wordpress deployment file so it will get the secrets from secrets manager

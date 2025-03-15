@@ -1,3 +1,5 @@
+---
+# AWS ALB Ingress for WordPress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -15,7 +17,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /wordpress
+          - path: /
             pathType: Prefix
             backend:
               service:

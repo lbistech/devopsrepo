@@ -1,3 +1,5 @@
+---
+# MySQL Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -13,35 +15,31 @@ spec:
       labels:
         app: mysql
     spec:
+      serviceAccountName: aws-secrets-manager
       containers:
       - name: mysql
-        image: mysql
-        envFrom:
-          - configMapRef:
-              name: mysql-config
+        image: mysql:8.0
         env:
           - name: MYSQL_ROOT_PASSWORD
+            value: "password"
+          - name: MYSQL_DATABASE
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
-                key: mysql-root-password
+                key: MYSQL_DATABASE
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_USER
           - name: MYSQL_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secret
-                key: mysql-password
-          - name: MYSQL_USER
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: MYSQL_USER
-          - name: MYSQL_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: mysql-config
-                key: MYSQL_DATABASE
+                key: MYSQL_PASSWORD
         ports:
         - containerPort: 3306
+          name: mysql
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
