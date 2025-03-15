@@ -30,6 +30,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: lbistech-dev-service  # Replace with your application's service name
+                name: lbistech-dev-service
                 port:
                   number: 80

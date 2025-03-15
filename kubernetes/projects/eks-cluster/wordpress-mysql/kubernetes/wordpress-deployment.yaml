@@ -18,29 +18,22 @@ spec:
         image: wordpress:latest
         env:
         - name: WORDPRESS_DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: MYSQL_DATABASE  
-
+          value: "mysql.default.svc.cluster.local"
         - name: WORDPRESS_DB_USER
           valueFrom:
             configMapKeyRef:
               name: mysql-config
               key: MYSQL_USER  
-
         - name: WORDPRESS_DB_NAME
           valueFrom:
             configMapKeyRef:
               name: mysql-config
               key: MYSQL_DATABASE
-
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-secret
-              key: mysql-root-password  
-
+              key: mysql-password
         ports:
         - containerPort: 80
         volumeMounts:

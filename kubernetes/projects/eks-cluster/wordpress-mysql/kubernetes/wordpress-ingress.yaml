@@ -4,20 +4,21 @@ metadata:
   name: wordpress-ingress
   namespace: default
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing  # ✅ Public ALB
-    alb.ingress.kubernetes.io/target-type: "ip"  # ✅ Use IP targets (not instance)
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'  # ✅ Listen on port 80
-    alb.ingress.kubernetes.io/load-balancer-name: "wordpress-alb"  # ✅ Custom ALB name (optional)
-    alb.ingress.kubernetes.io/group.name: "wordpress-ingress-group"  # ✅ Optional for grouping
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=350
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/group.name: lbistech-dev-backbone-ingress-group
+    alb.ingress.kubernetes.io/group.order: "2"
+    alb.ingress.kubernetes.io/target-type: ip
 spec:
   ingressClassName: alb
   rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: wordpress
-            port:
-              number: 80
+    - http:
+        paths:
+          - path: /wordpress
+            pathType: Prefix
+            backend:
+              service:
+                name: wordpress
+                port:
+                  number: 80
