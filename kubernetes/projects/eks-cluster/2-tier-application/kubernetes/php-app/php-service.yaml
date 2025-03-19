@@ -1,0 +1,29 @@
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: php-service
+#   namespace: two-tier-app
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: php-app
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80
+
+#### With loadbalancer type
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-service
+  namespace: two-tier-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: php-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

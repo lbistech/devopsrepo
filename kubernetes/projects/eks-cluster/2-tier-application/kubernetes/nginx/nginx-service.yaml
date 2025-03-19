@@ -1,0 +1,15 @@
+# *** No need for this because we have created the service in php manifest section ***
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx-service
+#   namespace: two-tier-app
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: nginx
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80
