@@ -1,3 +1,6 @@
+To build the docker images use the following command: 
+docker build --platform=linux/amd64 -t lbistech/eks-two-tier-app:latest . --no-cache
+````
 # Step 01: 
 Deploy the mysql application using kubectl command
 # Step 02:

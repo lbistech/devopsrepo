@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Tier App</title>
+    <script>
+        async function fetchUsers() {
+            const response = await fetch("http://backend-service:3000/users");
+            const users = await response.json();
+            document.getElementById("users").innerHTML = users.map(user => `<li>${user.name}</li>`).join('');
+        }
+    </script>
+</head>
+<body onload="fetchUsers()">
+    <h1>Welcome to the 3-Tier App</h1>
+    <h2>Users List</h2>
+    <ul id="users"></ul>
+</body>
+</html>
