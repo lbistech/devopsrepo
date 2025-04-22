@@ -73,15 +73,6 @@ spec:
 Apply it:
 ```kubectl apply -f backend/backend-vpa.yaml```
 
-3. (Optional) Apply the Horizontal Pod Autoscaler (HPA)
-```bash
-kubectl autoscale deployment backend \
-  --cpu-percent=50 \
-  --min=2 \
-  --max=5 \
-  -n three-tier-app
-```
-
 🔄 Load Generation for Testing
 Run a BusyBox pod to generate constant load:
 ```bash
@@ -99,18 +90,68 @@ Monitor Pod Metrics:
 Monitor VPA Recommendations:
 ```kubectl describe vpa backend-vpa -n three-tier-app```
 
-Monitor HPA Scaling:
+📊 Horizontal Pod Autoscaler (HPA)
+Apply the HPA Resource:
+```bash
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-hpa
+  namespace: three-tier-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+```
+Apply it:
+```kubectl apply -f backend/backend-hpa.yaml```
+
+Monitor HPA:
 ```kubectl get hpa -n three-tier-app -w```
 
-✅ Expected Behavior
-    HPA increases pod replicas when CPU usage > 50%
-    VPA evicts pods and reassigns CPU/memory requests based on observed usage
-    New pods reflect VPA’s recommended resources
+Expected output:
+```bash
+NAME        REFERENCE           TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+backend-hpa Deployment/backend  65%/50%    2         5         3          3m
+```
+HPA evaluates every 15 seconds and scales in only after sustained low usage for 5 minutes.
+
+🔄 Load Generation for Testing HPA:
+Run a BusyBox pod to simulate load:
+```bash
+kubectl run -it --rm load-generator -n three-tier-app \
+  --image=busybox --restart=Never -- /bin/sh
+```
+
+Inside the pod:
+```while true; do wget -q -O- http://backend-service:3000/users; done```
+Keep it running for at least 5–10 minutes to observe autoscaling.
+
+✅ Expected Behavior VPA
+    - HPA increases pod replicas when CPU usage > 50%
+    - VPA evicts pods and reassigns CPU/memory requests based on observed usage
+    - New pods reflect VPA’s recommended resources
+
+✅ Expected Behavior HPA
+    - CPU > 50% avg - HPA increases pod replicas (scale out)
+    - CPU < 50% for ~5 minutes - HPA reduces pod replicas (scale in)
+    - Sustained usage on few pods - VPA adjusts CPU/memory requests automatically
 
 📘 Notes
-    VPA only adjusts requests, not limits.
-    HPA and VPA can be used together but manage different aspects.
-    Use kubectl get pods -o wide --sort-by=.metadata.creationTimestamp to observe pod evictions.
+    - VPA only modifies requests, not limits.
+    - HPA and VPA can be used together but manage different aspects.
+    - Use kubectl get pods -o wide --sort-by=.metadata.creationTimestamp to observe pod evictions.
+    - HPA works based on CPU utilization from metrics-server.
 
 👨‍💻 Maintainer
 Usman Ahmad
