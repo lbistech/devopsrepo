@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: lbistech/3-tier-backend-app
+        image: lbistech/3-tier-backend-app:latest
         env:
         - name: DB_HOST
           value: "mysql"
@@ -30,3 +30,10 @@ spec:
           value: "appdb"
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"

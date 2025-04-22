@@ -10,3 +10,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  storageClassName: gp2 #We have defined this storageclass according to our existing SC | Remove or update it if needed

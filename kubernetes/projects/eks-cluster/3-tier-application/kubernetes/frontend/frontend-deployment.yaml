@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: lbistech/3-tier-frontend-app
+        image: lbistech/3-tier-frontend-app:latest
         ports:
         - containerPort: 80
