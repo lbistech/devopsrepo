@@ -30,31 +30,6 @@ variable "cluster_version" {
   default     = ""
 }
 
-variable "aws_secrets_service_account" {
-  description = "The aws secrets manager service account name"
-  type        = string
-}
-
-variable "fluentbit_service_account" {
-  description = "The fluent bit service account name"
-  type        = string
-}
-
-variable "loadbalancer_service_account" {
-  description = "The aws loadbalancer service account name"
-  type        = string
-}
-
-variable "cluster_autoscaler_service_account" {
-  description = "The cluster autoscaler service account name"
-  type        = string
-}
-
-variable "aws_ebs_csi_service_account" {
-  description = "The aws ebs csi driver service account name"
-  type        = string
-}
-
 variable "cluster_endpoint_public_access" {
   description = "Indicates whether or not the Amazon EKS public API server endpoint is enabled"
   type        = bool
@@ -108,5 +83,29 @@ variable "accepter_vpc_id" {
 
 variable "accepter_vpc_cidr" {
   description = "The CIDR block of the Accepter VPC for the VPC peering"
+  type        = string
+}
+variable "aws_secrets_service_account" {
+  description = "The aws secrets manager service account name"
+  type        = string
+}
+
+variable "fluentbit_service_account" {
+  description = "The fluent bit service account name"
+  type        = string
+}
+
+variable "loadbalancer_service_account" {
+  description = "The aws loadbalancer service account name"
+  type        = string
+}
+
+variable "cluster_autoscaler_service_account" {
+  description = "The cluster autoscaler service account name"
+  type        = string
+}
+
+variable "aws_ebs_csi_service_account" {
+  description = "The aws ebs csi driver service account name"
   type        = string
 }
