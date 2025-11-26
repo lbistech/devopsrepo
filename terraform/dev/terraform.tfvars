@@ -10,7 +10,7 @@ accepter_vpc_cidr    = "172.31.0.0/16"
 
 # EKS
 cluster_name     = "dev"
-cluster_version  = "1.30"
+cluster_version  = "1.32"
 ssh_key_name     = "lb-eks-cluster"
 cluster_endpoint_public_access = true
 cluster_endpoint_private_access = true

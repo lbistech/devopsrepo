@@ -20,7 +20,8 @@ resource "aws_iam_policy" "ebs_csi_driver_policy" {
           "ec2:DescribeVolumes",
           "ec2:DescribeVolumesModifications",
           "ec2:DetachVolume",
-          "ec2:ModifyVolume"
+          "ec2:ModifyVolume",
+          "ec2:DescribeAvailabilityZones"
         ],
         Resource = "*"
       }

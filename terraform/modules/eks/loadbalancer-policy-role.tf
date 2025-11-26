@@ -1,9 +1,3 @@
-data "aws_caller_identity" "current" {}
-
-output "cluster_oidc_issuer_url" {
-  value = module.eks.cluster_oidc_issuer_url
-}
-
 resource "aws_iam_policy" "load_balancer_controller_policy" {
   name        = "AWSLoadBalancerControllerPolicy"
   description = "IAM policy for AWS Load Balancer Controller"

@@ -1,4 +1,73 @@
-Batch-04/docker-resources/projects/drupal-postgres/app/web-data/html/core/yarn.lock 
+###############################################
+# Mac OS System Files
+###############################################
+.DS_Store
+*/.DS_Store
+*/*.DS_Store
 
-.terraform
+###############################################
+# Terraform Local State Files (Do NOT push!)
+###############################################
+*.tfstate
+*.tfstate.backup
+.terraform/
 .terraform.lock.hcl
+crash.log
+
+# Block sensitive variables
+terraform.tfvars
+*.tfvars
+*.tfvars.json
+
+###############################################
+# Kubernetes sensitive or generated files
+###############################################
+# kubeconfigs
+kubeconfig
+kubeconfig.*
+*.kubeconfig
+
+# kubectl output files
+*.out
+*.log
+
+# Helm
+charts/
+*.tgz
+helmfile.lock
+
+###############################################
+# Docker
+###############################################
+docker-compose.override.yml
+docker-compose.local.yml
+
+###############################################
+# Python (if used anywhere)
+###############################################
+__pycache__/
+*.pyc
+
+###############################################
+# Node / Yarn / NPM folders
+###############################################
+node_modules/
+yarn.lock
+package-lock.json
+
+###############################################
+# Ignore Kubernetes demo folders 
+###############################################
+kubernetes/manifest-files/**/loadbalancer-testing/
+
+###############################################
+# Ignore Batch folders (if they contain binaries)
+###############################################
+Batch-*/.DS_Store
+Batch-*/tmp/
+Batch-*/output/
+
+###############################################
+# Drupal or PHP specific (you added this earlier)
+###############################################
+Batch-04/docker-resources/projects/drupal-postgres/app/web-data/html/core/yarn.lock
