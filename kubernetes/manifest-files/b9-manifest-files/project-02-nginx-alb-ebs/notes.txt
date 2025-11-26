@@ -1,0 +1,11 @@
+✔ Deployment
+✔ Service (ClusterIP)
+✔ Ingress (creates AWS ALB automatically)
+✔ Health checks
+✔ DNS-ready ALB
+
+1- kubectl create namespace demo
+2- Create nginx Deployment
+3- Create ClusterIP Service
+4- Create Ingress to trigger AWS ALB
+5- Add Custom Domain to ALB DNS

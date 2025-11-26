@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-data
+  namespace: demo
+data:
+  index.html: |
+    <html>
+      <head>
+        <title>My Sample NGINX Page</title>
+      </head>
+      <body>
+        <h1>Welcome to My NGINX Application!</h1>
+        <p>This is served from EBS-backed volume on AWS EKS.</p>
+      </body>
+    </html>

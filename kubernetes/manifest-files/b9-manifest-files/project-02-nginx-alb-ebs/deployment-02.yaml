@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-demo
+  namespace: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-demo
+  template:
+    metadata:
+      labels:
+        app: nginx-demo
+    spec:
+      initContainers:
+        - name: volume-permission-fix
+          image: busybox
+          command: ["sh", "-c", "cp -r /data/* /mnt/data/ && chmod -R 755 /mnt/data"]
+          volumeMounts:
+            - name: data-dir
+              mountPath: /data/  # Mount the ConfigMap here
+            - name: nginx-volume
+              mountPath: /mnt/data  # Mount the EBS volume here
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-volume
+              mountPath: /usr/share/nginx/html  # Mount the EBS volume here
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: nginx-volume
+          persistentVolumeClaim:
+            claimName: nginx-pvc
+        - name: data-dir
+          hostPath:
+            path: /data/
+            type: Directory
