@@ -19,9 +19,23 @@ db.connect(err => {
   }
 });
 
+// Handle both /users and /api/users endpoints
+app.get('/api/users', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database query failed' });
+    }
+    res.json(results);
+  });
+});
+
 app.get('/users', (req, res) => {
   db.query('SELECT * FROM users', (err, results) => {
-    if (err) throw err;
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database query failed' });
+    }
     res.json(results);
   });
 });
