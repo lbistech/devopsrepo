@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: php-ingress
+  namespace: two-tier-app
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/load-balancer-name: php-alb
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: "/"
+    alb.ingress.kubernetes.io/healthcheck-port: "80"
+spec:
+  ingressClassName: alb
+  rules:
+    #- host: app.syedusmanahmad.com
+    -   http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: php-service
+                  port:
+                    number: 80

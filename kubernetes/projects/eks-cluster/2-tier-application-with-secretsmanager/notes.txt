@@ -1,0 +1,11 @@
+To build the docker images use the following command: 
+docker build --platform=linux/amd64 -t lbistech/eks-two-tier-app:latest . --no-cache
+````
+# Step 01: 
+Deploy the mysql application using kubectl command
+# Step 02:
+Now create the php-app deployment using kubectl command
+# Step 03:
+Access the ALB DNS and verify we should have "Connected successfully to MySQL database!"
+# Step 04:
+Now access the mysql pod and create the database "testdb" manually
