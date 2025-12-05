@@ -21,13 +21,16 @@ spec:
           value: "mysql"
         - name: DB_USER
           value: "root"
+        - name: DB_NAME
+          value: "appdb"
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
-              key: mysql-root-password
-        - name: DB_NAME
-          value: "appdb"
+              name: backend-secret
+              key: MYSQL_ROOT_PASSWORD
+        envFrom:
+        - secretRef:
+            name: backend-secret   # <-- created by ExternalSecret
         ports:
         - containerPort: 3000
         resources:
