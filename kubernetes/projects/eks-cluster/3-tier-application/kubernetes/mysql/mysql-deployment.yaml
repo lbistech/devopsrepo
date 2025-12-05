@@ -17,19 +17,19 @@ spec:
       containers:
       - name: mysql
         image: mariadb:10.6
-        env:
-        - name: MARIADB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-root-password
+        envFrom:
+        - secretRef:
+            name: mysql-secret   # <-- created by ExternalSecret
+
         ports:
         - containerPort: 3306
+
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
         - name: mysql-initdb
           mountPath: /docker-entrypoint-initdb.d
+
       volumes:
       - name: mysql-storage
         persistentVolumeClaim:
