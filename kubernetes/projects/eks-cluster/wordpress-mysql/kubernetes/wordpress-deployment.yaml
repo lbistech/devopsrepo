@@ -15,7 +15,6 @@ spec:
       labels:
         app: wordpress
     spec:
-      serviceAccountName: aws-secrets-manager
       containers:
       - name: wordpress
         image: wordpress:latest
