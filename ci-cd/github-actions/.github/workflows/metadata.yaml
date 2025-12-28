@@ -1,0 +1,16 @@
+name: Metadata GitHub Actions
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  metadata-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show GitHub Information
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit SHA: ${{ github.sha }}"

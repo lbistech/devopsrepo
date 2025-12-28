@@ -1,0 +1,21 @@
+name: System Inforamtion
+
+on:
+    workflow_dispatch: {}
+
+jobs:
+    system-job:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Print hello
+              run: echo "Hello from github actions!"
+
+            - name: Current storage stats
+              run: df -h
+
+            - name: Current memory stats
+              run: free
+
+            - name: Current cpu stats
+              run: top
