@@ -1,0 +1,7 @@
+---
+- name: Run system command
+  hosts: all_servers
+
+  tasks:
+    - name: Check uptime
+      command: uptime

@@ -1,0 +1,9 @@
+frontend http_front
+    bind *:80
+    default_backend web_back
+
+backend web_back
+    balance roundrobin
+{% for host in groups['web'] %}
+    server {{ host }} {{ hostvars[host].ansible_host }}:5000 check
+{% endfor %}

@@ -1,0 +1,29 @@
+---
+- name: Install OS dependencies
+  apt:
+    name:
+      - python3-pip
+      - python3-venv
+      - nginx
+    state: present
+    update_cache: yes
+
+- name: Create virtual environment
+  command: python3 -m venv /opt/venv
+  args:
+    creates: /opt/venv
+
+- name: Install Python dependencies
+  pip:
+    name:
+      - flask
+      - mysql-connector-python
+    virtualenv: /opt/venv
+
+- name: Deploy Flask app
+  template:
+    src: app.py.j2
+    dest: /opt/app.py
+
+- name: Run Flask app
+  shell: nohup /opt/venv/bin/python /opt/app.py &

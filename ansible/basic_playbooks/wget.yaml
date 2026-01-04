@@ -1,0 +1,13 @@
+---
+- name: Install packages using variables
+  hosts: web_servers
+  become: yes
+
+  vars:
+    package: wget
+
+  tasks:
+    - name: Install package
+      apt:
+        name: "{{ package }}"
+        state: present

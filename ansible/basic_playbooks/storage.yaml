@@ -1,0 +1,12 @@
+---
+- name: Run system storage command
+  hosts: all_servers
+
+  tasks:
+    - name: Check Storage
+      command: "df -h"
+      register: storage_output
+
+    - name: Display storage information
+      debug:
+        msg: "{{ storage_output.stdout }}"

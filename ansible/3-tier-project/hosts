@@ -1,0 +1,13 @@
+[loadbalancer]
+lb ansible_host=3.238.95.119
+
+[web]
+web_server_01 ansible_host=44.201.67.99
+web_server_02 ansible_host=98.92.176.59
+
+[db]
+db1 ansible_host=3.237.7.151
+
+[all:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/id_ed25519

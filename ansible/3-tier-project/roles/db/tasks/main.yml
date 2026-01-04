@@ -1,0 +1,52 @@
+---
+- name: Install MySQL and dependencies
+  apt:
+    name:
+      - mysql-server
+      - python3-pymysql
+    state: present
+    update_cache: yes
+
+- name: Start MySQL
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create database
+  community.mysql.mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create DB user
+  community.mysql.mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: 'testdb.*:ALL'
+    host: '%'
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create table
+  community.mysql.mysql_query:
+    login_db: "{{ db_name }}"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    query: |
+      CREATE TABLE IF NOT EXISTS messages (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        message VARCHAR(255) NOT NULL
+      );
+
+- name: Insert demo data
+  community.mysql.mysql_query:
+    login_db: "{{ db_name }}"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    query: |
+      INSERT INTO messages (message)
+      SELECT 'Hello from Database via Ansible'
+      WHERE NOT EXISTS (
+        SELECT 1 FROM messages WHERE message='Hello from Database via Ansible'
+      );

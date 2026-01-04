@@ -1,0 +1,22 @@
+---
+- name: Install nginx on web servers
+  hosts: web_servers
+  become: yes
+
+  tasks:
+    - name: Execute updat ecommand
+      command: "apt update"
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+    - name: Start nginx and enable nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: Copy index.html
+      template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html

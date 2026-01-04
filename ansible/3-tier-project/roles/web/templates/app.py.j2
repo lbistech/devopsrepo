@@ -1,0 +1,20 @@
+from flask import Flask
+import mysql.connector
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    db = mysql.connector.connect(
+        host="{{ db_host }}",
+    	user="{{ db_user }}",
+    	password="{{ db_password }}",
+    	database="{{ db_name }}"
+    )
+    cursor = db.cursor()
+    cursor.execute("SELECT 'Hello from Database'")
+    data = cursor.fetchone()
+    return data[0]
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

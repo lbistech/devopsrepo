@@ -1,0 +1,13 @@
+---
+- name: Get /dev/root storage information
+  hosts: all_servers
+
+  tasks:
+    - name: Check /dev/root storage only
+      shell: |
+        df -h | awk 'NR==1 || $1=="/dev/root"'
+      register: storage_output
+
+    - name: Display storage information
+      debug:
+        msg: "{{ storage_output.stdout }}"

@@ -1,0 +1,17 @@
+---
+- hosts: db
+  become: yes
+  roles:
+    - db
+
+- hosts: web
+  become: yes
+  vars:
+    db_host: "{{ hostvars[groups['db'][0]].ansible_host }}"
+  roles:
+    - web
+
+- hosts: loadbalancer
+  become: yes
+  roles:
+    - loadbalancer
