@@ -6,8 +6,6 @@ module "vpc" {
   cluster_name = var.cluster_name
   environment = var.environment
   enable_vpc_peering   = var.enable_vpc_peering
-  accepter_vpc_id      = var.accepter_vpc_id
-  accepter_vpc_cidr    = var.accepter_vpc_cidr
 }
 
 module "eks" {

@@ -1,15 +1,12 @@
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
-data "aws_eks_cluster" "cluster" {
-  name = var.cluster_name
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = var.cluster_name
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "aws"
+    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
+  }
 }
 
 data "aws_caller_identity" "current" {}
@@ -31,10 +28,13 @@ module "eks" {
   # Enable OIDC Provider for IRSA
   enable_irsa = true
 
+  # Grant the identity running Terraform admin access to the cluster
+  enable_cluster_creator_admin_permissions = true
+
   # Managed Node Groups
   eks_managed_node_groups = {
     eks_nodes = {
-      ami_type         = "AL2_x86_64"
+      ami_type         = "AL2023_x86_64_STANDARD"
       desired_size     = var.desired_capacity
       max_size         = var.max_capacity
       min_size         = var.min_capacity

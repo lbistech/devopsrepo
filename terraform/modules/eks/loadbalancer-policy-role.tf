@@ -280,7 +280,7 @@ resource "aws_iam_role_policy_attachment" "attach_lb_policy" {
 }
 
 #Associate the Service Account with the IAM Role
-resource "kubernetes_service_account" "load_balancer_controller_sa" {
+resource "kubernetes_service_account_v1" "load_balancer_controller_sa" {
   metadata {
     name      = var.loadbalancer_service_account
     namespace = "kube-system"
@@ -291,12 +291,12 @@ resource "kubernetes_service_account" "load_balancer_controller_sa" {
 }
 
 # Create a Secret to Bind the Token to the Service Account
-resource "kubernetes_secret" "load_balancer_controller_token" {
+resource "kubernetes_secret_v1" "load_balancer_controller_token" {
   metadata {
     name      = "${var.loadbalancer_service_account}-token"
     namespace = "kube-system"
     annotations = {
-      "kubernetes.io/service-account.name" = kubernetes_service_account.load_balancer_controller_sa.metadata[0].name
+      "kubernetes.io/service-account.name" = kubernetes_service_account_v1.load_balancer_controller_sa.metadata[0].name
     }
   }
 

@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "fluent_bit_policy_attachment" {
   policy_arn = aws_iam_policy.fluent_bit_policy.arn
 }
 
-resource "kubernetes_service_account" "fluent_bit_sa" {
+resource "kubernetes_service_account_v1" "fluent_bit_sa" {
   metadata {
     name      = var.fluentbit_service_account
     namespace = "kube-system"
@@ -57,12 +57,12 @@ resource "kubernetes_service_account" "fluent_bit_sa" {
 }
 
 # Create a Secret to Bind the Token to the Service Account
-resource "kubernetes_secret" "fluent_bit_token" {
+resource "kubernetes_secret_v1" "fluent_bit_token" {
   metadata {
     name      = "${var.fluentbit_service_account}-token"
     namespace = "kube-system"
     annotations = {
-      "kubernetes.io/service-account.name" = kubernetes_service_account.fluent_bit_sa.metadata[0].name
+      "kubernetes.io/service-account.name" = kubernetes_service_account_v1.fluent_bit_sa.metadata[0].name
     }
   }
 

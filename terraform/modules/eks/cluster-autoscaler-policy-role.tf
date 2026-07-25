@@ -51,7 +51,7 @@ resource "aws_iam_role_policy_attachment" "cluster_autoscaler_policy_attachment"
   policy_arn = aws_iam_policy.cluster_autoscaler_policy.arn
 }
 
-resource "kubernetes_service_account" "cluster_autoscaler_sa" {
+resource "kubernetes_service_account_v1" "cluster_autoscaler_sa" {
   metadata {
     name      = var.cluster_autoscaler_service_account
     namespace = "kube-system"
@@ -62,12 +62,12 @@ resource "kubernetes_service_account" "cluster_autoscaler_sa" {
 }
 
 # Create a Secret to Bind the Token to the Service Account
-resource "kubernetes_secret" "cluster_autoscaler_token" {
+resource "kubernetes_secret_v1" "cluster_autoscaler_token" {
   metadata {
     name      = "${var.cluster_autoscaler_service_account}-token"
     namespace = "kube-system"
     annotations = {
-      "kubernetes.io/service-account.name" = kubernetes_service_account.cluster_autoscaler_sa.metadata[0].name
+      "kubernetes.io/service-account.name" = kubernetes_service_account_v1.cluster_autoscaler_sa.metadata[0].name
     }
   }
 

@@ -74,17 +74,6 @@ variable "enable_vpc_peering" {
   default     = false
 }
 
-# Variable for Accepter VPC ID
-variable "accepter_vpc_id" {
-  description = "The ID of the Accepter VPC for the peering connection"
-  type        = string
-  default     = null
-}
-
-variable "accepter_vpc_cidr" {
-  description = "The CIDR block of the Accepter VPC for the VPC peering"
-  type        = string
-}
 variable "aws_secrets_service_account" {
   description = "The aws secrets manager service account name"
   type        = string

@@ -9,49 +9,6 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-# VPC Peering Connection
-resource "aws_vpc_peering_connection" "vpc_peering" {
-  count        = var.enable_vpc_peering ? 1 : 0
-  vpc_id       = aws_vpc.vpc.id
-  peer_vpc_id  = var.accepter_vpc_id
-  auto_accept  = false
-  tags = {
-    Name        = "${var.vpc_name}-peering-terraform"
-    Environment = var.environment
-  }
-}
-
-# Accept the VPC Peering Connection
-resource "aws_vpc_peering_connection_accepter" "accepter" {
-  count                     = var.enable_vpc_peering ? 1 : 0
-  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering[0].id
-  auto_accept               = true
-
-  accepter {
-    allow_remote_vpc_dns_resolution = true
-  }
-
-  requester {
-    allow_remote_vpc_dns_resolution = true
-  }
-}
-
-# Public Route Table with VPC Peering Route
-resource "aws_route" "public_peering_route" {
-  count                 = var.enable_vpc_peering ? 1 : 0
-  route_table_id        = aws_route_table.public.id
-  destination_cidr_block = var.accepter_vpc_cidr
-  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering[0].id
-}
-
-# Private Route Tables with VPC Peering Route
-resource "aws_route" "private_peering_routes" {
-  count                 = var.enable_vpc_peering ? length(var.azs) : 0
-  route_table_id        = aws_route_table.private[count.index].id
-  destination_cidr_block = var.accepter_vpc_cidr
-  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering[0].id
-}
-
 # Public Subnets
 resource "aws_subnet" "public" {
   count                   = length(var.azs)

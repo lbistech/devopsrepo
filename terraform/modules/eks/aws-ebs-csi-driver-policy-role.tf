@@ -59,7 +59,7 @@ resource "aws_iam_role_policy_attachment" "attach_ebs_csi_policy" {
 }
 
 # Step 3: Create Kubernetes ServiceAccount
-resource "kubernetes_service_account" "ebs_csi_controller_sa" {
+resource "kubernetes_service_account_v1" "ebs_csi_controller_sa" {
   metadata {
     name      = var.aws_ebs_csi_service_account
     namespace = "kube-system"
@@ -70,12 +70,12 @@ resource "kubernetes_service_account" "ebs_csi_controller_sa" {
 }
 
 # Create a Secret to Bind the Token to the Service Account
-resource "kubernetes_secret" "ebs_csi_controller_token" {
+resource "kubernetes_secret_v1" "ebs_csi_controller_token" {
   metadata {
     name      = "${var.aws_ebs_csi_service_account}-token"
     namespace = "kube-system"
     annotations = {
-      "kubernetes.io/service-account.name" = kubernetes_service_account.ebs_csi_controller_sa.metadata[0].name
+      "kubernetes.io/service-account.name" = kubernetes_service_account_v1.ebs_csi_controller_sa.metadata[0].name
     }
   }
 

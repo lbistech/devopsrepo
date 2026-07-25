@@ -47,7 +47,7 @@ resource "aws_iam_role_policy_attachment" "secrets_manager_policy_attachment" {
   policy_arn = aws_iam_policy.secrets_manager_policy.arn
 }
 
-resource "kubernetes_service_account" "aws_secrets_manager_sa" {
+resource "kubernetes_service_account_v1" "aws_secrets_manager_sa" {
   metadata {
     name      = var.aws_secrets_service_account
     namespace = "kube-system"
@@ -58,12 +58,12 @@ resource "kubernetes_service_account" "aws_secrets_manager_sa" {
 }
 
 # Create a Secret to Bind the Token to the Service Account
-resource "kubernetes_secret" "aws_secrets_manager_token" {
+resource "kubernetes_secret_v1" "aws_secrets_manager_token" {
   metadata {
     name      = "${var.aws_secrets_service_account}-token"
     namespace = "kube-system"
     annotations = {
-      "kubernetes.io/service-account.name" = kubernetes_service_account.aws_secrets_manager_sa.metadata[0].name
+      "kubernetes.io/service-account.name" = kubernetes_service_account_v1.aws_secrets_manager_sa.metadata[0].name
     }
   }
 

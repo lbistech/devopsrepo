@@ -1,9 +1,18 @@
 terraform {
+  required_version = ">= 1.11.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
   backend "s3" {
-    bucket         = "devops-b8-terraform-statefile"      
-    key            = "terraform/dev/ekslatest.tfstate"
-    region         = "eu-central-1"
-    dynamodb_table = "terraform-locks"
-    encrypt        = true
+    bucket       = "aiops-terraform-eks-cluster"
+    key          = "eks/terraform.tfstate"
+    region       = "eu-central-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }
