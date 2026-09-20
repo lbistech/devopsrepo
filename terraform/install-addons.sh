@@ -13,7 +13,7 @@ set -e
 #############################
 CLUSTER_NAME=$1
 VPC_ID=$2
-REGION=${3:-"us-east-1"}
+REGION=${3:-"eu-central-1"}
 
 if [[ -z "$CLUSTER_NAME" || -z "$VPC_ID" ]]; then
   echo "Usage: ./install-addons.sh <cluster_name> <vpc_id> <region>"
